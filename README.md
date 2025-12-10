@@ -7,6 +7,8 @@ Note: This tool cannot bypass all restrictions, and some features may not work d
 
 Use this program responsibly, especially on school or workplace computers.
 
+I do NOT accept liability for any repercussions from the use of this software.
+
 Functionality is not guaranteed on heavily restricted systems.
 
 Requirements
