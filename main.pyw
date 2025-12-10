@@ -37,6 +37,15 @@ def runScript(event, script):
     elif script == "windir":
         subprocess.run(["explorer", "Shell:Windows"])
 
+    elif script == "progFiles":
+        subprocess.run(["explorer", "Shell:ProgramFiles"])
+
+    elif script == "progFiles64":
+        subprocess.run(["explorer", "Shell:ProgramFilesX64"])
+
+    elif script == "progFiles86":
+        subprocess.run(["explorer", "Shell:ProgramFilesX86"])
+
     elif script == "sys32":
         subprocess.run(["explorer", "Shell:System"])
 
@@ -233,5 +242,17 @@ button18.bind("<ButtonRelease-1>", lambda event: runScript(event, "ctrlPanel"))
 button19 = customtkinter.CTkButton(commandsFrame, text="Remove Or Modify Programs", width=45)
 button19.pack(padx = 10, pady = 5)
 button19.bind("<ButtonRelease-1>", lambda event: runScript(event, "changePrograms"))
+
+button20 = customtkinter.CTkButton(commandsFrame, text="Open Program Files", width=45)
+button20.pack(padx = 10, pady = 5)
+button20.bind("<ButtonRelease-1>", lambda event: runScript(event, "progFiles"))
+
+button21 = customtkinter.CTkButton(commandsFrame, text="Open Program Files(x64)", width=45)
+button21.pack(padx = 10, pady = 5)
+button21.bind("<ButtonRelease-1>", lambda event: runScript(event, "progFiles64"))
+
+button22 = customtkinter.CTkButton(commandsFrame, text="Open Program Files(x86)", width=45)
+button22.pack(padx = 10, pady = 5)
+button22.bind("<ButtonRelease-1>", lambda event: runScript(event, "progFiles86"))
 
 window.mainloop()
