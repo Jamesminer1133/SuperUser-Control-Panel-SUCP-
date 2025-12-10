@@ -1,0 +1,19 @@
+SuperUser Control Panel
+
+SuperUser Control Panel is designed to make certain difficult or restricted tasks on Windows easier to perform. It can also enable actions on systems with limited permissions, such as school or workplace devices.
+Note: This tool cannot bypass all restrictions, and some features may not work depending on system policies.
+
+--IMPORTANT NOTICE--
+
+Use this program responsibly, especially on school or workplace computers.
+
+Functionality is not guaranteed on heavily restricted systems.
+
+Requirements
+
+This program requires the CustomTkinter Python library.
+
+Installation Guide: https://customtkinter.tomschimansky.com/documentation/
+
+You can install it with:
+pip install customtkinter
