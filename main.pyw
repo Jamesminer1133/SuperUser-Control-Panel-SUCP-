@@ -18,6 +18,12 @@ def runScript(event, script):
         
     elif script == "start":
         subprocess.run(["explorer", "Shell:Programs"])
+
+    elif script == "desktop":
+        subprocess.run(["explorer", "Shell:Desktop"])
+
+    elif script == "globalDesktop":
+        subprocess.run(["explorer", "Shell:Common Desktop"])
         
     elif script == "shutdown":
         os.system("shutdown -t 0")
@@ -27,6 +33,18 @@ def runScript(event, script):
         
     elif script == "restart":
         os.system("shutdown -r -t 0")
+
+    elif script == "windir":
+        subprocess.run(["explorer", "Shell:Windows"])
+
+    elif script == "sys32":
+        subprocess.run(["explorer", "Shell:System"])
+
+    elif script == "changePrograms":
+        subprocess.run(["explorer", "Shell:ChangeRemoveProgramsFolder"])
+
+    elif script == "ctrlPanel":
+        subprocess.run(["explorer", "Shell:ControlPanelFolder"])
         
     elif script == "darkmode":
         keyPath = r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
@@ -191,5 +209,29 @@ button13.bind("<ButtonRelease-1>", lambda event: runScript(event, "transparency0
 
 restartLabel = customtkinter.CTkLabel(settingsFrame, text="A system restart is advised after applying the above changes.", fg_color="transparent")
 restartLabel.pack(padx = 10, pady = 0)
+
+button14 = customtkinter.CTkButton(commandsFrame, text="Open Windows Folder", width=45)
+button14.pack(padx = 10, pady = 5)
+button14.bind("<ButtonRelease-1>", lambda event: runScript(event, "windir"))
+
+button15 = customtkinter.CTkButton(commandsFrame, text="Open System32", width=45)
+button15.pack(padx = 10, pady = 5)
+button15.bind("<ButtonRelease-1>", lambda event: runScript(event, "sys32"))
+
+button16 = customtkinter.CTkButton(commandsFrame, text="Open Local Desktop", width=45)
+button16.pack(padx = 10, pady = 5)
+button16.bind("<ButtonRelease-1>", lambda event: runScript(event, "desktop"))
+
+button17 = customtkinter.CTkButton(commandsFrame, text="Open Global Desktop", width=45)
+button17.pack(padx = 10, pady = 5)
+button17.bind("<ButtonRelease-1>", lambda event: runScript(event, "globalDesktop"))
+
+button18 = customtkinter.CTkButton(commandsFrame, text="Open Control Panel", width=45)
+button18.pack(padx = 10, pady = 5)
+button18.bind("<ButtonRelease-1>", lambda event: runScript(event, "ctrlPanel"))
+
+button19 = customtkinter.CTkButton(commandsFrame, text="Remove Or Modify Programs", width=45)
+button19.pack(padx = 10, pady = 5)
+button19.bind("<ButtonRelease-1>", lambda event: runScript(event, "changePrograms"))
 
 window.mainloop()
