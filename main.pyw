@@ -4,12 +4,21 @@ import tkinter
 from tkinter import PhotoImage
 import customtkinter
 import winreg
+from tkinter.filedialog import askdirectory
+from tkinter.filedialog import askopenfile
+import ctypes
 
+#reg values
 
 def runScript(event, script):
     if script == "shellApps":
         subprocess.run(["explorer", "shell:AppsFolder"])
         
+    elif event == "loadRef":
+        Registry = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+        key = winreg.OpenKey(Registry, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\SystemUsesLightTheme")
+        print(key)
+    
     elif script == "godMode":
         subprocess.run('start shell:::{ED7BA470-8E54-465E-825C-99712043E01C}', shell=True)
         
@@ -60,6 +69,27 @@ def runScript(event, script):
 
     elif script == "globalStartup":
         subprocess.run(["explorer", "Shell:Common Startup"])
+
+    elif script == "cmd":
+        subprocess.Popen("C:\\Windows\\System32\\cmd.exe")
+
+    elif script == "setWallpaper":
+        path = askopenfile(initialdir="/", title="Select an image", filetypes=(("PNG Files", "*.png"), ("JPG Files", "*.jpg*"), ("JPEG Files", "*.jpeg*")))
+        path = path.name
+
+        # Constants for setting the wallpaper
+        SPI_SETDESKWALLPAPER = 20  # Action to change wallpaper
+        SPIF_UPDATEINIFILE = 0x01  # Update user profile
+        SPIF_SENDWININICHANGE = 0x02  # Notify change to system
+
+        try:
+            # Call Windows API to change wallpaper
+            ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)
+            return True
+        except Exception as e:
+            # Print error message if wallpaper change fails
+            print(f"Error changing wallpaper: {e}")
+            return False
         
     elif script == "darkmode":
         keyPath = r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
@@ -144,6 +174,8 @@ def runScript(event, script):
 window = customtkinter.CTk()
 window.geometry("500x600")
 
+runScript("e", "loadReg")
+
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")
 
@@ -157,6 +189,8 @@ tabview.configure(anchor="n")
 tabview.add("Commands")  # add tab at the end
 tabview.add("Settings")  # add tab at the end
 tabview.set("Commands")  # set currently visible tab
+
+tabview.tab("Commands").bind("<ButtonRelease-1>", lambda event: runScript(event, "LoadReg"))
 
 window.title("SuperUser Menu")
 
@@ -268,5 +302,13 @@ button23.bind("<ButtonRelease-1>", lambda event: runScript(event, "startup"))
 button24 = customtkinter.CTkButton(commandsFrame, text="Open Global Startup Folder", width=45)
 button24.pack(padx = 10, pady = 5)
 button24.bind("<ButtonRelease-1>", lambda event: runScript(event, "globalStartup"))
+
+button25 = customtkinter.CTkButton(commandsFrame, text="Open Command Prompt (System32)", width=45)
+button25.pack(padx = 10, pady = 5)
+button25.bind("<ButtonRelease-1>", lambda event: runScript(event, "cmd"))
+
+button26 = customtkinter.CTkButton(commandsFrame, text="Set Desktop Wallpaper", width=45)
+button26.pack(padx = 10, pady = 5)
+button26.bind("<ButtonRelease-1>", lambda event: runScript(event, "setWallpaper"))
 
 window.mainloop()
